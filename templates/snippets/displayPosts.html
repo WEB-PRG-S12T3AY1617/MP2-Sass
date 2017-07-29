@@ -1,0 +1,31 @@
+{% load filters %}
+<div id="posts">
+
+    {% if query.object_list|list_len <= 0 %}
+        <h1 style="text-align: center; color: #7f7f7f; font-family: Bitter, serif; font-weight: bold;">NO POSTS TO DISPLAY</h1>
+    {% else %}
+        {% for q in query %}
+            <div class="post">
+                <div class="postImg" onclick="displayPost({{ q|serialize_object }})" style="background-image: url({{ MEDIA_URL }}{{ q.item.picture }});"></div>
+                <div class="details">
+                    <div class="itemUse">
+                        <i>
+
+                        {% if q.item.use == 0 %}
+                            Office Use
+                        {% elif q.item.use == 1 %}
+                            Academic Use
+                        {% else %}
+                            Other
+                        {% endif %}
+
+                        </i>
+                    </div>
+                    <div class="itemName"><b>{{ q.item.name }}</b></div>
+                    <div class="itemOwner"><a href="#" onclick="goToUser(this)">{{ q.user.email }}</a></div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+</div>

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Beginnings Marketplace - {{ title }}</title>
+    <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
+    <link rel="shortcut icon" type="img/png" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'style/bootstrap-reboot.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style/bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+
+    {% for style in styles %}
+        <link rel="stylesheet" href="{% static 'style/'|add:style|add:'.css' %}">
+    {% endfor %}
+</head>
+<body>
+
+    {% if hasModal %}
+        {% include 'snippets/hasModal.html' %}
+    {% endif %}
+
+    {% include 'snippets/nav.html' with isLoggedIn=isLoggedIn %}
+
+    <div id="body">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+</body>
+<script src="{% static 'script/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'script/bootstrap.min.js' %}"></script>
+
+{% for script in scripts %}
+    <script src="{% static 'script/'|add:script|add:'.js' %}"></script>
+{% endfor %}
+
+{% block script %}
+{% endblock %}
+
+</html>

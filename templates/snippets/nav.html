@@ -1,0 +1,28 @@
+<div id="navigation">
+    <nav class="nav">
+
+        <a href="{% url 'postsIndex' %}" class="title">
+            <div>
+                <span>NB</span>
+                <span>new<br/>beginnings</span>
+            </div>
+        </a>
+
+        <a href="{% url 'postsIndex' %}" class="nav-link">Posts</a>
+
+        {% if not isLoggedIn %}
+            <a href="{% url 'register' %}" class="nav-link">Register</a>
+            <a href="{% url 'login' %}" class="nav-link">Log In</a>
+        {% else %}
+            <a href="{% url 'postsSell' %}" class="nav-link">Sell</a>
+            <a href="{% url 'userIndex' %}" class="nav-link">Profile</a>
+            <a href="{% url 'logoutAct' %}" class="nav-link">Log Out</a>
+        {% endif %}
+
+        <form action="/posts/" class="form-inline" id="searchNav">
+            <input type="text" name="tags" id="" placeholder="Search tags here...">
+            <input type="submit" value="Search">
+        </form>
+
+    </nav>
+</div>

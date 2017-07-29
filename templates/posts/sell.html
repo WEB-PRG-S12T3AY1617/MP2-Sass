@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% include 'snippets/form.html' with forms=form form_url='/posts/sell/act/' form_method='POST' form_enctype='multipart/form-data' response=response%}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% include 'snippets/postsForm.html' with response=response %}
+
+    {% include 'snippets/displayPosts.html' with query=query pageNum=pageNum%}
+{% endblock %}
+
+{% block script %}
+    <script>
+        function displayNextPage(pageNum){
+            $("#postsForm").append("<input type='hidden' name='page' value={{ pageNum|add:1 }}>");
+            $("#postsForm").submit();
+        }
+    </script>
+{% endblock %}

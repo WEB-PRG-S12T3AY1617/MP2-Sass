@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% include 'snippets/form.html' with forms=form form_url='/users/register/act/' title='Register' form_method='POST' errors=errors form_enctype='multipart/form-data'%}
+{% endblock %}

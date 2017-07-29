@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    {% if not isLoggedIn and not user %}
+        {% include 'snippets/form.html' with forms=form form_url='/users/login/act/' title='Log In' buttons=buttons form_method='POST' %}
+    {% else %}
+        <div class="userInfo">
+            <div class="userPicture">
+                <img src="{{ MEDIA_URL }}{{ user.picture }}" alt="">
+            </div>
+            <div class="userDetails">
+                <p><b>Name: </b> {{ user.name }}</p>
+                <p><b>Type: </b> {% if user.type == 0 %} Student {% else %} Faculty Member {% endif %}</p>
+                <p><b>Email: </b> <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+                <p><b>Contact Number: </b> {{ user.contact_num }}</p>
+            </div>
+        </div><br>
+        <div>
+            <h1 style="border-top: 2px solid #e2e2e2; text-align: center; color: #7f7f7f; font-family: Bitter, serif; font-weight: bold;">Top 10 Posts</h1>
+            <div style="text-align: center; margin: 15px;">
+                <a href="/posts/?user={{ user.pk }}" class="btn-sm btn-primary">View This User's Posts</a>
+            </div>
+            {% include 'snippets/displayPosts.html' with query=query %}
+        </div>
+    {% endif %}
+
+{% endblock %}

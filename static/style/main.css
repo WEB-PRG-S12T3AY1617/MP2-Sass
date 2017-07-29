@@ -1,0 +1,153 @@
+a, input[type=submit], button{
+    cursor: pointer !important;
+}
+
+.title{
+    margin-left: 25px;
+    color: #ffffff;
+}
+
+.title span{
+    font-family: 'Bitter', serif;
+    display: inline-block;
+}
+
+.title span:first-child{
+    font-weight: bold;
+    font-size:2.5em;
+}
+
+.title span:not(:first-child){
+    font-size:13px;
+    line-height: 15px;
+    vertical-align: top;
+    margin-top: 15px;
+}
+
+#navigation{
+    top: 0;
+    left: 0;
+    width: 100%;
+    position: fixed;
+    background-color: #003979;
+    border-bottom: 5px solid #01162d;
+    z-index: 10;
+}
+
+#body{
+    position: relative;
+    top: 65px;
+}
+
+#navigation nav a:not(.title){
+    color: #ffffff;
+    font-size: 20px;
+    min-width: 100px;
+    padding-top: 15px;
+    text-align: center;
+    text-transform: lowercase;
+    font-family: 'Bitter', serif;
+}
+
+#navigation nav a:nth-child(2){
+    margin-left: 35px;
+}
+
+#navigation nav a:not(.title):hover{
+    background-color: #01162d;
+}
+
+#navigation nav a.title{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#searchNav{
+    position: absolute;
+    right: 50px;
+    top: 15px;
+}
+
+#searchNav input{
+    padding: 1px 1px 1px 5px;
+}
+
+#searchNav input[type=text]{
+    width:275px;
+}
+
+#searchNav input[type=submit]{
+    width: 100px;
+    padding: 2px;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #01162d;
+    border: 1px solid #01162d;
+    font-family: 'Open Sans Light', sans-serif;
+    -webkit-transition: all 0.13s;
+    -moz-transition: all 0.13s;
+    -ms-transition: all 0.13s;
+    -o-transition: all 0.13s;
+    transition: all 0.13s;
+}
+
+#searchNav input[type=submit]:hover{
+    background-color: #010e1c;
+    border: 1px solid #010e1c;
+}
+
+#body{
+    padding-top: 15px;
+}
+
+.formTitle{
+    font-size: 3em;
+    font-weight: bold;
+    font-family: 'Bitter', sans-serif;
+    color: #a8a8a8;
+    border-bottom: 2px dashed #e2e2e2;
+}
+
+.subForm:not(:last-child){
+    border-left: 1px solid #e2e2e2;
+    padding-bottom: 15px;
+    margin-bottom: 35px;
+}
+
+.subForm div:not(.subFormTitle){
+    margin-left: 35px;
+}
+
+.subFormTitle{
+    font-size: 1.2em;
+    text-transform: lowercase;
+    font-family: 'Bitter', sans-serif;
+    color: #a8a8a8;
+    background-color: #e2e2e2;
+    padding: 8px;
+    margin: 15px 0;
+}
+
+.form{
+    padding: 10px;
+    margin-left: 35px;
+}
+
+#postsForm .form-group, #postsForm .form-control, #postsForm .btn{
+    margin-left: 25px !important;
+}
+
+.userInfo div{
+    vertical-align: middle;
+    display: inline-block;
+    margin: 10px;
+}
+
+.userInfo div img{
+    height: 170px;
+}
+
+
+.userInfo div p{
+    margin: 5px;
+}

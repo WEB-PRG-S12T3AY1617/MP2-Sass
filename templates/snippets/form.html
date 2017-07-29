@@ -1,0 +1,74 @@
+{% load filters %}
+
+<div class="container">
+    <div class="formTitle">{{ title }}</div>
+    <form class="form" id="form" action="{{ form_url }}" method="{{ form_method }}" {% if form_enctype %} enctype="{{ form_enctype }}" {% endif %}>
+        {% for form in forms %}
+
+            {% if form|get_form_title %}
+                <div class="subForm">
+                    <div class="subFormTitle">{{ form|get_form_title }}</div>
+            {% endif %}
+
+            {% for field in form %}
+
+                    {% if field|fieldType == 'ButtonInput' or field|fieldType == 'RadioSelect' %}
+                        <div class="form-check">
+                            {% if field|fieldType == 'RadioSelect' %}
+                                {% for radio in field %}
+                                    <label class="form-check-label">
+                                        {{ radio.tag }}
+                                        {{ radio.choice_label }}
+                                    </label>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if form.help and form.help|get_item:field.name %}
+                                <small class="form-text text-muted">* {{ form.help|get_item:field.name }}</small>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            <label for="{{ field.name }}" class="form-control-label">{{ field.label }}</label>
+                            {{ field }}
+
+                            {% if form.help and form.help|get_item:field.name %}
+                                <small class="form-text text-muted">* {{ form.help|get_item:field.name }}</small>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+            {% endfor %}
+
+            {% if form|get_form_title %}
+               </div>
+            {% endif %}
+        {% endfor %}
+
+        {% csrf_token %}
+
+        {% if buttons %}
+            {% for button_name, button in buttons.items %}
+                {% if button.type == 'link' %}
+                    <a href="{{ button.link }}" class="{{ button.class }}" id="{{ button.id }}">{{ button_name }}</a>
+                {% elif button.type == 'button' %}
+                    <button class="{{ button.class }}" id="{{ button.id }}">{{ button_name }}</button>
+                {% elif button.type == 'submit' %}
+                    <input type="submit" value="{{ button_name }}" class="{{ button.class }}" id="{{ button.id }}">
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </form>
+
+    <div id="errors">
+        {% if response and not response.success %}
+            {% if response.error|get_var_type == 'str' %}
+                <div class="alert alert-danger"><strong>Error: </strong> {{ response.error }}</div>
+            {% else %}
+                {% for error in response.error %}
+                    <div class="alert alert-danger"><strong>Error: </strong> {{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,44 @@
+{% load filters %}
+
+<div class="content">
+    <div class="subFormTitle">
+        <form action="/posts/" class="form-inline" id="postsForm">
+            <div class="form-group">
+                <label class="form-control-label">Search Tags: </label>
+                {% if tags %}
+                    <input type="text" class="form-control form-control-sm" name="tags" value="{{ tags }}">
+                {% else %}
+                    <input type="text" class="form-control form-control-sm" name="tags">
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label class="form-check-label"> Post Type: </label>
+
+                <select name="type" class="form-control form-control-sm">
+                    <option value="-1" {% if type == '-1' %} selected {% endif %}>--- NO TYPE ---</option>
+                    <option value="0" {% if type == '0' %} selected {% endif %}>Office</option>
+                    <option value="1" {% if type == '1' %} selected {% endif %}>Academic</option>
+                    <option value="2" {% if type == '2' %} selected {% endif %}>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-check-label"> posts per page </label>
+
+                <select name="limit" class="form-control form-control-sm">
+                    <option value="10" {% if limit == '10' %} selected {% endif %}>10 Posts</option>
+                    <option value="15" {% if limit == '15' %} selected {% endif %}>15 Posts</option>
+                    <option value="20" {% if limit == '20' %} selected {% endif %}>20 Posts</option>
+                </select>
+            </div>
+
+            {% if user %}
+                <input type="hidden" name="user" value="{{ user }}">
+            {% endif %}
+
+            <input type="submit" value="Search" class="btn btn-sm btn-primary">
+            <button class="btn btn-sm btn-success" onclick="displayNextPage({{ pageNum|add:1 }})">View Next Posts</button>
+        </form>
+    </div>
+</div>
