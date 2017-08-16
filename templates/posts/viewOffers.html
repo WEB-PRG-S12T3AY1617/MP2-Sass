@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load filters %}
+
+{% block body %}
+    {% if offers.count <= 0 %}
+        <h1 style="text-align: center; color: #7f7f7f; font-family: Bitter, serif; font-weight: bold;">YOU DON'T HAVE ANY OFFERS</h1>
+        <hr>
+    {% endif %}
+
+    {% for offer in offers %}
+        <div class="post">
+            {% if offer.accepted %}
+                <center><b>Offer Accepted!</b></center>
+            {% elif offer.rejected %}
+                <center><b>Offer Rejected!</b></center>
+            {% endif %}
+            {% if offer.post %}
+                <center><b>Item Offer: </b></center>
+                <div class="postImg" style="background-image: url({{ MEDIA_URL }}{{ offer.post.item.picture }});"></div>
+                <div class="details">
+                    <div class="itemUse">
+                        <i>
+
+                        {% if offer.post.item.use == 0 %}
+                            Office Use
+                        {% elif offer.post.item.use == 1 %}
+                            Academic Use
+                        {% else %}
+                            Other
+                        {% endif %}
+
+                        </i>
+                    </div>
+                <div class="itemName"><b>{{ offer.post.item.name }}</b></div>
+            {% endif %}
+            <p><b>Cash Offer: </b> <i>Php. </i> {{ offer.offerCash }}</p>
+            <p>Offered By: <a href="#" onclick="goToUser(this)">{{ offer.offerFrom.email }}</a></p>
+
+            {% if offer.accepted == False and offer.rejected == False %}
+                <p><a href="/offer/accept/?offer={{ offer.pk }}" class="btn btn-primary">Accept</a> <a href="/offer/reject/?offer={{ offer.pk }}" class="btn btn-secondary">Reject</a></p>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+{% endblock %}

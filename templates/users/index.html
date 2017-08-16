@@ -14,6 +14,12 @@
                 <p><b>Type: </b> {% if user.type == 0 %} Student {% else %} Faculty Member {% endif %}</p>
                 <p><b>Email: </b> <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
                 <p><b>Contact Number: </b> {{ user.contact_num }}</p>
+                {% if isLoggedIn and user.email == request.session.userMail %}
+                    <p><a href="{% url 'viewOffers' %}">View Offers</a></p>
+                    <p><a href="{% url 'myOffers' %}">View My Offers</a></p>
+                {% elif query.count > 0 and isLoggedIn %}
+                    <p><a href="{% url 'offer' %}?user={{ user.pk }}">Offer/Buy From this User</a></p>
+                {% endif %}
             </div>
         </div><br>
         <div>

@@ -46,7 +46,7 @@ def index(request, response=None):
         db = paginator.page(paginator.num_pages)
 
     return render(request, 'posts/index.html', {'title': 'View Posts', 'response': response, 'isLoggedIn': actions.isLoggedIn(request),
-                                                'query': db, 'styles': {'posts'}, 'scripts': {'posts'},'pageNum': page, 'tags': tags,
+                                                'query': db, 'styles': {'posts'}, 'scripts': {'posts'},'pageNum': str(page), 'pages': str(paginator.num_pages), 'tags': tags,
                                                 'type': use, 'limit': limit, 'hasModal': True, 'user': uid})
 
 

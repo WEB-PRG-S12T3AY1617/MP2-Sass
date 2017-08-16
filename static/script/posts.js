@@ -32,7 +32,7 @@ function displayPost(data){
                 tags = tags.split(" ");
 
                 for(i = 0; i < tags.length; i++){
-                    modal.find("#tags").append("<span class='sub'>" + tags[i] + "</span> ");
+                    modal.find("#tags").append("<a href='/posts/?tags=" + tags[i] + "' class='sub'>" + tags[i] + "</a> ");
                 }
 
                 modal.find("#img").attr('src', "/media/" + item.picture);

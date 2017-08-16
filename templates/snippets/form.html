@@ -1,7 +1,7 @@
 {% load filters %}
 
 <div class="container">
-    <div class="formTitle">{{ title }}</div>
+    <div class="formTitle">{{ title|safe }}</div>
     <form class="form" id="form" action="{{ form_url }}" method="{{ form_method }}" {% if form_enctype %} enctype="{{ form_enctype }}" {% endif %}>
         {% for form in forms %}
 

@@ -38,7 +38,12 @@
             {% endif %}
 
             <input type="submit" value="Search" class="btn btn-sm btn-primary">
-            <button class="btn btn-sm btn-success" onclick="displayNextPage({{ pageNum|add:1 }})">View Next Posts</button>
+            {% if pageNum > '1' %}
+                <button class="btn btn-sm btn-success" onclick="displayPrevPage({{ pageNum|add:-1 }})">View Previous Posts</button>
+            {% endif %}
+            {% if pageNum < pages %}
+                <button class="btn btn-sm btn-success" onclick="displayNextPage({{ pageNum|add:1 }})">View Next Posts</button>
+            {% endif %}
         </form>
     </div>
 </div>

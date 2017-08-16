@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load filters %}
+
+{% block body %}
+    {% if offers.count <= 0 %}
+        <h1 style="text-align: center; color: #7f7f7f; font-family: Bitter, serif; font-weight: bold;">YOU HAVEN'T MADE ANY OFFERS</h1>
+        <hr>
+    {% endif %}
+
+    {% for offer in offers %}
+        <div class="post">
+            {% if offer.rejected %}
+                <center><b>Offer Was Rejected!</b></center>
+            {% elif offer.accepted %}
+                <center><b>Offer Was Accepted!</b></center>
+            {% endif %}
+
+            <div class="postImg" style="background-image: url({{ MEDIA_URL }}{{ offer.post.item.picture }});"></div>
+            <div class="details">
+                <div class="itemUse">
+                    <i>
+
+                    {% if offer.post.item.use == 0 %}
+                        Office Use
+                    {% elif offer.post.item.use == 1 %}
+                        Academic Use
+                    {% else %}
+                        Other
+                    {% endif %}
+
+                    </i>
+                </div>
+                <div class="itemName"><b>{{ offer.post.item.name }}</b></div>
+                <div class="itemOwner"><a href="#" onclick="goToUser(this)">{{ offer.post.user.email }}</a></div>
+
+                <form action="/offer/update/" method="POST">
+                    {% csrf_token %}
+                    {% if not offer.accepted and not offer.rejected %}
+                        {{ offer|get_offer_form:False }}
+                    {% endif %}
+                    <br>
+                    <input type="hidden" name="post" value="{{ offer.post.pk }}">
+                    {% if not offer.accepted and not offer.rejected %}
+                        <input type="submit" value="Update" class="btn btn-outline-primary">
+                        <a href="/offer/cancel/?offer={{ offer.pk }}" class="btn btn-secondary">Cancel</a>
+                    {% else %}
+                        <a href="/offer/cancel/?offer={{ offer.pk }}" class="btn btn-secondary">Remove</a>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

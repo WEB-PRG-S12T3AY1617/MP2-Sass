@@ -17,6 +17,14 @@ from django.conf.urls import url, include
 from . import views, controllers
 
 urlpatterns = [
+    url(r'^offer/accept/', controllers.accept),
+    url(r'^offer/reject/', controllers.reject),
+    url(r'^offer/cancel/', controllers.cancel),
+    url(r'^offer/update/', controllers.update),
+    url(r'^offer/viewOffers/', controllers.viewOffers, name='viewOffers'),
+    url(r'^offer/myOffers/', controllers.myOffers, name='myOffers'),
+    url(r'^offer/act/', controllers.offerAct),
+    url(r'^offer/offer/', controllers.offer, name='offer'),
     url(r'^get/user/', controllers.getUser),
     url(r'^get/item/', controllers.getItem),
     url(r'^sell/act/', controllers.sellAct),

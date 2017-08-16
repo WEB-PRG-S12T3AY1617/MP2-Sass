@@ -1,4 +1,7 @@
 from django import forms
+
+from posts.models import Offer, Post
+from users.models import User
 from . import models
 
 class ItemForm(forms.ModelForm):
@@ -59,3 +62,36 @@ class PostForm(forms.ModelForm):
             'description': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '(Second Hand, Barely Used...)'}),
             'tags': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'books science math...'})
         }
+
+class OfferForm(forms.ModelForm):
+    FORM_TITLE = 'Offer/Trade'
+
+    class Meta:
+        model = Offer
+
+        fields = ['post', 'offerPost', 'offerCash', 'message']
+
+        labels = {
+            'offerCash': 'Cash To Offer (in Php.)',
+        }
+
+        widgets = {
+            'offerCash': forms.NumberInput(attrs={'class': 'form-control'}),
+            'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Message Here...', 'style':'resize: none'}),
+        }
+    def __init__(self, sender, receiver, hidden=None, *args, **kwargs):
+        super(OfferForm, self).__init__(*args, **kwargs)
+
+        s = sender
+        r = receiver
+
+        self.fields['post'] = forms.ModelChoiceField(queryset=Post.objects.filter(user=r), label='Item To Buy', required=True,
+                                                     widget= forms.Select(attrs={'class': 'form-control'}))
+        self.fields['post'].label_from_instance = lambda obj: "%s" % obj.item.name
+
+        self.fields['offerPost'] = forms.ModelChoiceField(queryset=Post.objects.filter(user=s), label='Item To Offer', required=False,
+                                                          widget=forms.Select(attrs={'class': 'form-control'}))
+        self.fields['offerPost'].label_from_instance = lambda obj: "%s" % obj.item.name
+
+        if hidden == 'receiver':
+            del self.fields['post']

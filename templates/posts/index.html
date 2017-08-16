@@ -12,5 +12,10 @@
             $("#postsForm").append("<input type='hidden' name='page' value={{ pageNum|add:1 }}>");
             $("#postsForm").submit();
         }
+
+        function displayPrevPage(pageNum){
+            $("#postsForm").append("<input type='hidden' name='page' value={{ pageNum|add:-1 }}>");
+            $("#postsForm").submit();
+        }
     </script>
 {% endblock %}

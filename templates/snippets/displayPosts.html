@@ -1,6 +1,9 @@
 {% load filters %}
 <div id="posts">
-
+    {% if query|get_type == 'Page' %}
+        <div style="text-align: center; font-family: Bitter, serif; color: #7f7f7f; font-size: 21px; font-weight: bold;">{{ query }}</div>
+    {% endif %}
+    <br>
     {% if query.object_list|list_len <= 0 %}
         <h1 style="text-align: center; color: #7f7f7f; font-family: Bitter, serif; font-weight: bold;">NO POSTS TO DISPLAY</h1>
     {% else %}

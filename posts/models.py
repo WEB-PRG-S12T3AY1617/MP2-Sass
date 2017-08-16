@@ -16,3 +16,13 @@ class Post(models.Model):
     description = models.CharField(max_length=255)
     date_created = models.DateTimeField(auto_now=True)
     tags = models.TextField()
+
+class Offer(models.Model):
+    accepted = models.BooleanField(default=False)
+    rejected = models.BooleanField(default=False)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post')
+    offerFrom = models.ForeignKey(User, on_delete=models.CASCADE)
+    offerPost = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='offerPost', null=True, blank=True)
+    offerCash = models.PositiveIntegerField(default=0)
+    message = models.TextField()
+    date_offered = models.DateTimeField(auto_now=True)
